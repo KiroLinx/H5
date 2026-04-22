@@ -257,7 +257,7 @@ function renderPhrases() {
           <div class="text-[11px] text-gray-400 mt-0.5">${p.pron}</div>
         </div>
       </div>
-      <button class="w-8 h-8 rounded-full bg-thai-orange/10 text-thai-orange flex items-center justify-center active:scale-90 transition" onclick="speak('${p.th}')">
+      <button aria-label="朗读 ${p.zh}" title="朗读" class="w-8 h-8 rounded-full bg-thai-orange/10 text-thai-orange flex items-center justify-center active:scale-90 transition" onclick="speak('${p.th}')">
         <i class="ri-volume-up-line"></i>
       </button>
     </div>
@@ -344,5 +344,3 @@ function toast(msg) {
   document.body.appendChild(t);
   setTimeout(() => t.remove(), 1800);
 }
-
-```
