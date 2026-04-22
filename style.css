@@ -1,0 +1,293 @@
+/* ========================================
+ * 曼谷5日游 · 移动端H5样式
+ * ======================================== */
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+/* 隐藏滚动条 */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Ken Burns 动画 - 封面图缓慢缩放 */
+@keyframes kenburns {
+  0% { transform: scale(1.1) translate(0, 0); }
+  50% { transform: scale(1.2) translate(-1%, -1%); }
+  100% { transform: scale(1.1) translate(0, 0); }
+}
+.animate-kenburns {
+  animation: kenburns 20s ease-in-out infinite;
+}
+
+/* 轻缓bounce */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); opacity: 0.8; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+/* 进入视口淡入 */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 日期Tab激活样式 */
+.day-tab {
+  flex: 0 0 auto;
+  padding: 10px 16px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1.5px solid transparent;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  min-width: 72px;
+  text-align: center;
+}
+.day-tab .day-label {
+  font-size: 11px;
+  color: #999;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.day-tab .day-date {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1A1423;
+  margin-top: 2px;
+}
+.day-tab.active {
+  background: linear-gradient(135deg, #FF6B35, #E4002B);
+  border-color: transparent;
+  box-shadow: 0 8px 20px rgba(228, 0, 43, 0.35);
+  transform: translateY(-2px);
+}
+.day-tab.active .day-label,
+.day-tab.active .day-date {
+  color: #fff;
+}
+
+/* 时间轴 */
+.timeline-item {
+  position: relative;
+  padding-left: 28px;
+  padding-bottom: 20px;
+}
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 20px;
+  bottom: -5px;
+  width: 2px;
+  background: linear-gradient(to bottom, #FF6B35, rgba(255,107,53,0.2));
+}
+.timeline-item:last-child::before {
+  display: none;
+}
+.timeline-dot {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #FF6B35;
+  box-shadow: 0 0 0 3px rgba(255,107,53,0.15);
+  z-index: 1;
+}
+
+/* 景点卡片 */
+.spot-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.spot-card:active {
+  transform: scale(0.97);
+}
+.spot-card .spot-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease;
+}
+.spot-card:hover .spot-img {
+  transform: scale(1.08);
+}
+.spot-card .spot-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
+}
+.spot-card .spot-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px;
+  color: #fff;
+}
+.spot-card .rank-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 178, 41, 0.95);
+  color: #1A1423;
+  font-weight: 800;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+}
+
+/* 美食卡片 */
+.food-card {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+.food-card:active {
+  background: rgba(255,255,255,0.12);
+  transform: scale(0.98);
+}
+.food-card .food-thumb {
+  flex: 0 0 90px;
+  height: 90px;
+  border-radius: 14px;
+  background-size: cover;
+  background-position: center;
+}
+
+/* 预算进度条 */
+.budget-bar-track {
+  height: 6px;
+  border-radius: 3px;
+  background: #F0F0F0;
+  overflow: hidden;
+  margin-top: 6px;
+}
+.budget-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #06B6A4, #6B46C1);
+  width: 0;
+  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Tips 卡片 */
+.tip-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+  box-shadow: 0 4px 14px rgba(107, 70, 193, 0.06);
+  border-left: 4px solid transparent;
+}
+.tip-card.warn { border-left-color: #E4002B; }
+.tip-card.info { border-left-color: #06B6A4; }
+.tip-card.tip  { border-left-color: #F8B229; }
+
+/* Modal */
+.modal-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.modal-mask.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-panel {
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  border-radius: 24px 24px 0 0;
+  padding: 20px;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.modal-mask.active .modal-panel {
+  transform: translateY(0);
+}
+
+/* 涟漪波纹动画 */
+@keyframes ripple {
+  0% { box-shadow: 0 0 0 0 rgba(255,107,53,0.5); }
+  100% { box-shadow: 0 0 0 14px rgba(255,107,53,0); }
+}
+.ripple {
+  animation: ripple 2s infinite;
+}
+
+/* 返回顶部按钮 */
+#toTop.show {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* 标签 chip */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 500;
+  background: rgba(255,107,53,0.1);
+  color: #FF6B35;
+}
+.chip.teal { background: rgba(6,182,164,0.12); color:#06B6A4; }
+.chip.gold { background: rgba(248,178,41,0.15); color:#B97F00; }
+.chip.purple { background: rgba(107,70,193,0.12); color:#6B46C1; }
