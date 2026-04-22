@@ -3,6 +3,7 @@
  * ====================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+  renderHotel();
   renderDayTabs();
   renderDay(0);
   renderSpots();
@@ -14,6 +15,44 @@ document.addEventListener('DOMContentLoaded', () => {
   bindScrollEffects();
   bindShare();
 });
+
+/* ---------- 0. 酒店卡片 ---------- */
+function renderHotel() {
+  const el = document.getElementById('hotelCard');
+  if (!el) return;
+  el.innerHTML = `
+    <div class="relative rounded-3xl overflow-hidden shadow-xl shadow-thai-purple/20">
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('${HOTEL.img}')"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-thai-purple/85 via-thai-purple/70 to-thai-dark/90"></div>
+      <div class="relative p-5 text-white">
+        <div class="flex items-center gap-2 text-[11px] text-white/80 mb-1">
+          <i class="ri-hotel-line"></i>
+          <span>我们的五夜驻地</span>
+          <span class="ml-auto flex items-center gap-0.5 text-thai-gold">
+            <i class="ri-star-fill"></i> ${HOTEL.rating}
+          </span>
+        </div>
+        <h3 class="text-lg font-bold leading-snug">${HOTEL.nameZh}</h3>
+        <div class="text-[11px] text-white/75 mt-0.5 italic">${HOTEL.nameEn}</div>
+        <div class="mt-3 flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 backdrop-blur-sm border border-white/15">
+          <i class="ri-train-line text-thai-gold"></i>
+          <div class="flex-1 min-w-0">
+            <div class="text-xs font-bold truncate">${HOTEL.nearestBts}</div>
+            <div class="text-[10px] text-white/70">${HOTEL.btsWalk} · ${HOTEL.area}</div>
+          </div>
+        </div>
+        <div class="mt-3 grid grid-cols-1 gap-1.5">
+          ${HOTEL.highlights.map(h => `
+            <div class="flex items-center gap-2 text-[11px] text-white/85">
+              <i class="${h.icon} text-thai-gold"></i>
+              <span>${h.text}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
 
 /* ---------- 1. 行程 Tabs ---------- */
 function renderDayTabs() {
@@ -84,22 +123,43 @@ function renderDay(index) {
 function renderSpots() {
   const list = document.getElementById('spotList');
   list.innerHTML = SPOTS.map(s => `
-    <div class="spot-card shadow-md" data-spot="${s.name}">
-      <div class="spot-img" style="background-image:url('${s.img}')"></div>
-      <div class="spot-overlay"></div>
-      <div class="rank-badge">${s.rank}</div>
-      <div class="spot-info">
-        <div class="flex items-center gap-1 mb-1">
-          <span class="chip" style="background:rgba(255,178,41,0.95);color:#1A1423">${s.tag}</span>
-        </div>
-        <div class="font-bold text-base leading-tight">${s.name}</div>
-        <div class="text-[10px] opacity-80 mt-0.5">${s.en}</div>
-        <div class="flex items-center justify-between mt-1.5">
-          <div class="flex items-center gap-1 text-thai-gold text-[11px]">
-            <i class="ri-star-fill"></i>
-            <span>${s.rating}</span>
+    <div class="spot-card-row shadow-md bg-white rounded-2xl overflow-hidden border border-gray-100" data-spot="${s.name}">
+      <div class="flex">
+        <div class="relative w-[40%] min-h-[140px] flex-shrink-0">
+          <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('${s.img}')"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+          <div class="absolute top-2 left-2 w-7 h-7 rounded-full bg-thai-gold text-thai-dark font-black text-xs flex items-center justify-center shadow">
+            ${s.rank}
           </div>
-          <span class="text-[10px] text-white/70">${s.tip}</span>
+          <div class="absolute bottom-2 left-2 flex items-center gap-0.5 text-thai-gold text-[11px]">
+            <i class="ri-star-fill"></i>
+            <span class="text-white">${s.rating}</span>
+          </div>
+        </div>
+        <div class="flex-1 p-3 min-w-0">
+          <div class="flex items-start justify-between gap-2">
+            <div class="min-w-0">
+              <div class="font-bold text-[15px] text-thai-dark leading-tight truncate">${s.name}</div>
+              <div class="text-[10px] text-gray-400 mt-0.5 truncate">${s.en}</div>
+            </div>
+            <span class="chip flex-shrink-0" style="background:rgba(255,107,53,0.12);color:#FF6B35">${s.tag}</span>
+          </div>
+          <div class="text-[11px] text-gray-500 mt-1">${s.tip}</div>
+
+          <div class="mt-2 pt-2 border-t border-dashed border-gray-200">
+            <div class="flex items-center gap-1.5 text-[11px]">
+              <i class="ri-map-pin-range-line text-thai-red"></i>
+              <span class="font-bold text-thai-red">${s.dist}</span>
+            </div>
+            <div class="flex items-start gap-1.5 text-[11px] mt-1 text-gray-600 leading-relaxed">
+              <i class="ri-route-line text-thai-teal mt-0.5 flex-shrink-0"></i>
+              <span>${s.transit}</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-[11px] mt-1">
+              <i class="ri-coin-line text-thai-gold"></i>
+              <span class="text-thai-gold font-bold">${s.fare}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -284,3 +344,5 @@ function toast(msg) {
   document.body.appendChild(t);
   setTimeout(() => t.remove(), 1800);
 }
+
+```

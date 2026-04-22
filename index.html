@@ -132,6 +132,9 @@
         </div>
       </div>
 
+      <!-- 🏨 酒店卡片（脚本渲染） -->
+      <div id="hotelCard" class="mb-5"></div>
+
       <!-- 实用信息网格 -->
       <div class="grid grid-cols-2 gap-3">
         <div class="p-4 rounded-2xl bg-white shadow-sm border border-thai-orange/10">
@@ -176,13 +179,17 @@
 
     <!-- ===== 4. 必打卡景点 ===== -->
     <section id="spots" class="px-5 py-10 bg-gradient-to-b from-white to-thai-cream">
-      <div class="flex items-center gap-2 mb-5">
+      <div class="flex items-center gap-2 mb-2">
         <span class="w-1 h-6 bg-thai-gold rounded-full"></span>
-        <h2 class="text-xl font-bold text-thai-dark">必打卡 TOP 6</h2>
+        <h2 class="text-xl font-bold text-thai-dark">必打卡 TOP 10</h2>
         <span class="ml-auto text-xs text-gray-400">HIGHLIGHTS</span>
       </div>
+      <div class="flex items-center gap-1.5 mb-4 text-[11px] text-gray-500">
+        <i class="ri-information-line text-thai-purple"></i>
+        <span>所有距离/交通均以 <span class="font-bold text-thai-purple">拉查约廷酒店</span> 为起点</span>
+      </div>
 
-      <div id="spotList" class="grid grid-cols-2 gap-3"></div>
+      <div id="spotList" class="flex flex-col gap-3"></div>
     </section>
 
     <!-- ===== 5. 美食推荐 ===== -->
