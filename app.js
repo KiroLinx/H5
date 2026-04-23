@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderDay(0);
   renderSpots();
   renderFoods();
-  renderBudget();
   renderTips();
   renderTransports();
   renderPhrases();
